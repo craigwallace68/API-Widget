@@ -6,6 +6,7 @@ Instructions:
 API-Widget_v0.1.0.html
   [add this html code to a webserver - use the reverse proxy port 80 to bypass tls/certificates, etc.]
     [ also, update the proxmox node name in the html file list of endpoint to your specific proxmox node, it may aleady be 'proxmox' by default.  There are 7 example VM/LXC example endpoints the list which can be adjusted]
+    [access for this API-Widget is set in the nodeapp.conf file below to port 3003, ex. http://192.168.1.2:3003, adjust per your preferences]
   
 
 nodeapp.conf
