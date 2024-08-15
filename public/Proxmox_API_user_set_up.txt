@@ -1,0 +1,74 @@
+https://pve.proxmox.com/wiki/Proxmox_VE_API
+
+To set up an API user with permissions on Proxmox, follow these steps:
+1. Create a User
+
+    Navigate to the Proxmox Web Interface:
+        Log in to your Proxmox web interface.
+
+    Access the User Management:
+        Go to Datacenter > Permissions > Users.
+
+    Add a New User:
+        Click on the Add button.
+        In the dialog box, enter the following details:
+            User ID: Choose a unique ID for the user (e.g., apiuser).
+            Realm: Select PAM if you want the user to authenticate against the local Proxmox user database or PVE for Proxmox’s internal user database.
+            Comment: Optional field for notes.
+            Password: Set a secure password for the user.
+            Expire: Leave this empty or set a specific expiry date if desired.
+
+2. Assign Permissions
+
+    Determine the Scope:
+        Decide on the scope of permissions (e.g., at the Datacenter level, for a specific Node, or a particular VM/CT).
+
+    Assign Permissions:
+        Go to Datacenter > Permissions > User Permissions.
+        Click on Add.
+        In the dialog box, select:
+            Path: The scope where the permissions will apply (e.g., / for the entire Datacenter, /vms/<VMID> for a specific VM, etc.).
+            User: Select the user you created (e.g., apiuser@pam).
+            Role: Choose the appropriate role. Common roles for API users include:
+                PVEAdmin: Can manage all aspects of Proxmox except for user management.
+                PVEVMAdmin: Can manage VMs and Containers but not the host itself.
+                PVEDatastoreAdmin: Can manage storage resources.
+                PVEDatastoreUser: Can only read and use storage resources.
+
+3. Generate API Token (Optional)
+
+    Navigate to API Tokens:
+        Go to Datacenter > Permissions > API Tokens.
+        Select the user (e.g., apiuser@pam) and click on Add.
+
+    Create the Token:
+        In the dialog box, provide:
+            Token ID: A unique identifier for the token.
+            Comment: Optional field for notes.
+            Expiration Date: Set an expiration date or leave it blank for no expiration.
+            Privilege Separation: Optionally enable privilege separation for security.
+
+    Save the Token:
+        Once saved, you'll see the token in the list. Copy the token value as you'll need it for API requests.
+
+4. Testing API Access
+
+    Test the API User:
+        Use curl or any API client to make a test request to ensure the user can authenticate and has the correct permissions.
+
+    Example Curl Command:
+
+    bash
+
+curl -k -d 'username=apiuser@pam' --data-urlencode 'password=yourpassword' https://your-proxmox-server:8006/api2/json/access/ticket
+
+    Replace yourpassword with the actual password and your-proxmox-server with the Proxmox host's address.
+    If you're using a token:
+
+bash
+
+    curl -k -H "Authorization: PVEAPIToken=apiuser@pam!tokenid=your-token-value" https://your-proxmox-server:8006/api2/json/nodes
+
+5. Configure API Permissions (Optional)
+
+    If you want to fine-tune the API user's access, you can create custom roles under Datacenter > Permissions > Roles and assign them accordingly.
