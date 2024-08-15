@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="/favicon/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/favicon/favicon-32x32.png" type="image/png">
+    <link rel="icon" href="/favicon/favicon-16x16.png" type="image/png">
+    <link rel="icon" href="/favicon/android-chrome-192x192.png" type="image/png">
+    <link rel="icon" href="/favicon/android-chrome-512x512.png" type="image/png">
+    <link rel="icon" href="/favicon/apple-touch-icon.png" type="image/png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Widget</title>
+    <style>
+        body {
+            background-color: #1e1e1e; /* Dark grey background for the entire page */
+            color: #fff; /* White text color for the page */
+            font-family: Arial, sans-serif; /* Optional: Set a font for the page */
+            padding: 20px; /* Add some padding around the content */
+        }
+
+        textarea, input {
+            background-color: #2c3e50; /* Dark blue/grey background for inputs */
+            color: #fff; /* White text color for inputs */
+            border: 1px solid #34495e; /* Slightly lighter border for contrast */
+            padding: 10px; /* Add padding for better appearance */
+            box-sizing: border-box; /* Ensure padding and border are included in the width and height */
+            width: 100%; /* Full width of the container */
+            margin-bottom: 10px; /* Add some space below each input */
+        }
+
+        button {
+            background-color: #555; /* Dark grey background for button */
+            color: #fff; /* White text color for button */
+            border: none; /* Remove default border */
+            padding: 10px 20px; /* Add padding for better appearance */
+            cursor: pointer; /* Change cursor to pointer */
+            border-radius: 4px; /* Rounded corners */
+        }
+
+        button:hover {
+            background-color: #777; /* Slightly lighter grey on hover */
+        }
+
+        input[type="text"], input[type="password"] {
+            height: 30px;
+            width: 100%;
+            max-width: 1000px;
+            background-color: #333; /* Dark grey background for input fields */
+            color: #fff; /* White text color in input fields */
+            border: 1px solid #555; /* Slightly lighter border for contrast */
+            box-sizing: border-box; /* Ensure padding and border are included in the width and height */
+        }
+
+        input[type="password"] {
+            font-family: monospace; /* Optional: Set a monospace font for the password field */
+        }
+    </style>
+</head>
+<body>
+    <h1>API Widget</h1>
+
+    <!-- Section for token retrieval -->
+    <h2>Retrieve Tokens</h2>
+    <label for="apiBaseUrl">API Base URL:</label>
+    <input type="text" id="apiBaseUrl" placeholder="http://172.20.68.48" style="height: 30px; width: 100%; max-width: 1000px;" /><br>
+    <label for="username">Username:</label>
+    <input type="text" id="username" placeholder="puser2@pve" style="height: 30px;"  /><br>
+    <label for="password">Password:</label>
+    <input type="password" id="password" placeholder="pass1234" style="height: 30px;" /><br>
+    <form spellcheck="false">
+    <textarea id="tokenRequestOutput" rows="2" placeholder="Curl command will appear here..."></textarea><br>
+    <textarea id="tokenResponseOutput" rows="4" placeholder="Raw token response will appear here..."></textarea><br>
+    </form>
+    <button id="getTokens">Get Tokens</button>
+
+    <!-- Section for API calls -->
+    <h2>API Call</h2>
+    <label for="apiEndpoint">API Endpoint:</label>
+    <input type="text" list="endpointSelect" id="apiEndpoint" style="height: 30px; width: 100%; max-width: 1000px; background-color: #333; color: #fff; border: 1px solid #555; border-radius: 4px; ">
+      <datalist id= "endpointSelect">
+        <option value="/api2/json/access/domains">/api2/json/access/domains</option>
+        <option value="/api2/json/access/groups">/api2/json/access/groups</option>
+        <option value="/api2/json/access/roles">/api2/json/access/roles</option>
+        <option value="/api2/json/access/users">/api2/json/access/users</option>
+        <option value="/api2/json/access/acl">/api2/json/access/acl</option>
+        <option value="/api2/json/access/permissions">/api2/json/access/permissions</option>
+        <option value="/api2/json/cluster/acme/account">/api2/json/cluster/acme/account</option>
+        <option value="/api2/json/cluster/acme/tos">/api2/json/cluster/acme/tos</option>
+        <option value="/api2/json/cluster/acme/directories">/api2/json/cluster/acme/directories</option>
+        <option value="/api2/json/cluster/acme/plugins">/api2/json/cluster/acme/plugins</option>
+        <option value="/api2/json/cluster/acme/challenge-schema">/api2/json/cluster/acme/challenge-schema</option>
+        <option value="/api2/json/cluster/backup">/api2/json/cluster/backup</option>
+        <option value="/api2/json/cluster/backup-info/not-backed-up">/api2/json/cluster/backup-info/not-backed-up</option>
+        <option value="/api2/json/cluster/resources">/api2/json/cluster/resources</option>
+        <option value="/api2/json/nodes">/api2/json/nodes</option>
+        <option value="/api2/json/nodes/proxmox2/disks/list">/api2/json/nodes/proxmox2/disks/list</option>
+        <option value="/api2/json/nodes/proxmox2/hosts">/api2/json/nodes/proxmox2/hosts</option>
+        <option value="/api2/json/nodes/proxmox2/journal">/api2/json/nodes/proxmox2/journal</option>
+        <option value="/api2/json/nodes/proxmox2/netstat">/api2/json/nodes/proxmox2/netstat</option>
+        <option value="/api2/json/nodes/proxmox2/network">/api2/json/nodes/proxmox2/network</option>
+        <option value="/api2/json/nodes/proxmox2/report">/api2/json/nodes/proxmox2/report</option>
+        <option value="/api2/json/nodes/proxmox2/status">/api2/json/nodes/proxmox2/status</option>
+        <option value="/api2/json/pools">/api2/json/pools</option>
+        <option value="/api2/json/storage">/api2/json/storage</option>
+        <option value="/api2/json/version">/api2/json/version</option>
+        <option value="/api2/json/nodes/proxmox2/qemu/101/status/current">/api2/json/nodes/proxmox2/qemu/101/status/current</option>
+        <option value="/api2/json/nodes/proxmox2/qemu/102/status/current">/api2/json/nodes/proxmox2/qemu/102/status/current</option>
+        <option value="/api2/json/nodes/proxmox2/qemu/103/status/current">/api2/json/nodes/proxmox2/qemu/103/status/current</option>
+        <option value="/api2/json/nodes/proxmox2/qemu/104/status/current">/api2/json/nodes/proxmox2/qemu/104/status/current</option>
+        <option value="/api2/json/nodes/proxmox2/qemu/105/status/current">/api2/json/nodes/proxmox2/qemu/105/status/current</option>
+        <option value="/api2/json/nodes/proxmox2/lxc/106/status/current">/api2/json/nodes/proxmox2/lxc/106/status/current</option>
+        <option value="/api2/json/nodes/proxmox2/lxc/107/status/current">/api2/json/nodes/proxmox2/lxc/107/status/current</option>
+      </datalist>
+    </input><br>
+    <form spellcheck="false">
+    <textarea id="apiResponse" rows="40" placeholder="API response will appear here..."></textarea><br>
+    </form>
+    <button id="sendRequest">Send Request</button>
+    <button id="clearResponse">Clear Response</button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const getTokensButton = document.getElementById('getTokens');
+            const sendRequestButton = document.getElementById('sendRequest');
+            const clearResponseButton = document.getElementById('clearResponse');
+
+            const apiBaseUrl = document.getElementById('apiBaseUrl');
+            const usernameField = document.getElementById('username');
+            const passwordField = document.getElementById('password');
+            const apiEndpointField = document.getElementById('apiEndpoint');
+
+            const tokenRequestOutput = document.getElementById('tokenRequestOutput');
+            const tokenResponseOutput = document.getElementById('tokenResponseOutput');
+            const apiResponse = document.getElementById('apiResponse');
+
+            let authCookie = '';
+            let csrfToken = '';
+
+            // Function to mask the password in the curl command
+            function maskPassword(curlCommand) {
+                const maskedPassword = '********'; // Mask password
+                return curlCommand.replace(/password=[^&]+/, `password=${maskedPassword}`);
+            }
+
+            // Get Tokens
+            getTokensButton.addEventListener('click', () => {
+                const baseUrl = apiBaseUrl.value;
+                const username = usernameField.value;
+                const password = passwordField.value;
+
+                const curlCommand = `curl -k -d 'username=${username}' --data-urlencode 'password=${password}' ${baseUrl}/api2/json/access/ticket`;
+                tokenRequestOutput.value = maskPassword(curlCommand); // Mask password in curl command
+
+                fetch(`${baseUrl}/api2/json/access/ticket`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded'
+                    },
+                    body: new URLSearchParams({
+                        'username': username,
+                        'password': password
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data && data.data) {
+                        authCookie = data.data.ticket; // PVEAuthCookie
+                        csrfToken = data.data.CSRFPreventionToken; // CSRFPreventionToken
+
+                        // Display raw token response
+                        tokenResponseOutput.value = JSON.stringify(data, null, 4);
+
+                        // Optional: Set cookies in the browser (if needed)
+                        document.cookie = `PVEAuthCookie=${authCookie}; SameSite=None; Secure`;
+                        document.cookie = `CSRFPreventionToken=${csrfToken}; SameSite=None; Secure`;
+
+                        console.log('Tokens retrieved successfully');
+                    } else {
+                        console.error('Unexpected response format:', data);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error retrieving tokens:', error);
+                });
+            });
+
+            // Function to prettify JSON
+            function prettifyJson(jsonString) {
+                try {
+                    const json = JSON.parse(jsonString);
+                    return JSON.stringify(json, null, 4); // 4 spaces for indentation
+                } catch (error) {
+                    return `Error: Invalid JSON - ${error.message}`;
+                }
+            }
+
+            // Send API Request
+            sendRequestButton.addEventListener('click', () => {
+                const apiUrl = apiEndpointField.value;
+                const baseUrl = apiBaseUrl.value;
+
+                fetch(`${baseUrl}${apiUrl}`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `PVEAuthCookie=${authCookie}`, // Using the authCookie
+                        'CSRFPreventionToken': csrfToken // Using the csrfToken
+                    }
+                })
+                .then(response => response.text())
+                .then(text => {
+                    apiResponse.value = prettifyJson(text);  // Prettify JSON and display it
+                })
+                .catch(error => {
+                    apiResponse.value = `Error: ${error}`;
+                });
+            });
+
+            // Clear Response
+            clearResponseButton.addEventListener('click', () => {
+                apiResponse.value = '';
+            });
+        });
+    </script>
+</body>
+</html>
+
