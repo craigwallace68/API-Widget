@@ -62,11 +62,18 @@
     <!-- Section for token retrieval -->
     <h2>Retrieve Tokens</h2>
     <label for="apiBaseUrl">API Base URL:</label>
-    <input type="text" id="apiBaseUrl" placeholder="http://192.168.1.10" style="height: 30px; width: 100%; max-width: 1000px;" /><br>
+
+    <!-- Enter reverse-proxy IP entery goes here on http:80 -->
+    <input type="text" id="apiBaseUrl" placeholder="http://192.168.1.2" style="height: 30px; width: 100%; max-width: 1000px;" /><br> 
+
+    <!-- Username for proxmox API user and environment here, example user@pve -->
     <label for="username">Username:</label>
     <input type="text" id="username" placeholder="username@pve" style="height: 30px;"  /><br>
+
+    <!-- password for API user for proxmox and environment here -->
     <label for="password">Password:</label>
     <input type="password" id="password" placeholder="pass1234" style="height: 30px;" /><br>
+
     <form spellcheck="false">
     <textarea id="tokenRequestOutput" rows="2" placeholder="Curl command will appear here..."></textarea><br>
     <textarea id="tokenResponseOutput" rows="4" placeholder="Raw token response will appear here..."></textarea><br>
