@@ -5,13 +5,14 @@ Instructions:
 
 API-Widget_v0.1.0.html
   [add this html code to a webserver - use the reverse proxy port 80 to bypass tls/certificates, etc.]
+    [ also, update the proxmox node name in the html file list of endpoint to your specific proxmox node, it may aleady be 'proxmox' by default.  There are 7 example VM/LXC example endpoints the list which can be adjusted]
   
 
 nodeapp.conf
-  [update 'seerver_name' with reverse-proxy ip address and 'proxy_pass' with https://proxmox ip address:8006]
-  [add this configuration file/or block to existing file to your reverse-proxy] - this will eliminat the CORS 'cross-origin-resource-sharing' errors that arise from web-browser based API calls
+  [update 'server_name' with reverse-proxy ip address and 'proxy_pass' with https://proxmox ip address:8006]
+  [add this configuration file/or block to existing file to your reverse-proxy] - this will eliminate the CORS 'cross-origin-resource-sharing' errors that arise from web-browser based API calls
 
 In summary:
 
-web server/reverse-proxy -> hosts API-Widget web page -> use web form to request keys/tokens from reverse-proxy address on port 80 -> web page API endpoint - Send API request -> reverse proxy which sends -> to Proxmox and back to web page to display the response
+web server/reverse-proxy -> hosts API-Widget web page -> use web form to request keys/tokens from reverse-proxy address on port 80, then use the lower section of the web page API endpoint -> Send API request (drop-down or custom typed endpoint -> reverse proxy which sends -> to Proxmox and back to web page to display the response
 
