@@ -1,3 +1,4 @@
+Web Widget for Proxmox API calls, but should be adaptable to other platforms
 
 Instructions:
 
